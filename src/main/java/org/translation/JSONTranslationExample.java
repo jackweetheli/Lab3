@@ -12,7 +12,7 @@ import org.json.JSONObject;
  * A minimal example of reading and using the JSON data from resources/sample.json.
  */
 public class JSONTranslationExample {
-
+    public static final String ES = "es";
     public static final int CANADA_INDEX = 30;
     private final JSONArray jsonArray;
 
@@ -21,8 +21,6 @@ public class JSONTranslationExample {
         try {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
-            // TODO CheckStyle: Line is longer than 120 characters
-            //                  (note: you can split a line such that the next line starts with a .method()... call
             String jsonString = Files
                     .readString(Paths.get(getClass().getClassLoader().getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
@@ -38,13 +36,9 @@ public class JSONTranslationExample {
      */
     public String getCanadaCountryNameSpanishTranslation() {
 
-        // TODO Checkstyle: '30' is a magic number.
         JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
-        return canada.getString("es");
+        return canada.getString(ES);
     }
-
-    // TODO Task: Complete the method below to generalize the above to get the country name
-    //            for any country code and language code from sample.json.
 
     /**
      * Returns the name of the country based on the provided country and language codes.
@@ -74,8 +68,8 @@ public class JSONTranslationExample {
         JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
         System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-        String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
-        String translation2 = jsonTranslationExample.getCountryNameTranslation("afg", "es");
+        String translation = jsonTranslationExample.getCountryNameTranslation("can", ES);
+        String translation2 = jsonTranslationExample.getCountryNameTranslation("afg", ES);
         System.out.println(translation);
         System.out.println(translation2);
     }

@@ -5,21 +5,18 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
-    private final List<String> languageName = new ArrayList<String>();
+    private final List<String> languageName = new ArrayList<>();
     private final List<String> languageCode = new ArrayList<>();
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
-     * in the resources folder.
+     * in the resources' folder.
      */
     public LanguageCodeConverter() {
         this("language-codes.txt");
@@ -53,7 +50,6 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
         int i = 0;
         for (int index = 0; index < this.languageCode.size(); index++) {
             if (this.languageCode.get(index).equals(code)) {
@@ -85,7 +81,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
         return this.languageName.size();
     }
 }

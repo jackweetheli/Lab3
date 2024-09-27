@@ -1,14 +1,11 @@
 package org.translation;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
@@ -68,6 +65,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
+        if (code.isEmpty()) {
+            return "Country not found";
+        }
         int index = 0;
         for (int i = 0; i < a3.size(); i++) {
             if (a3.get(i).equalsIgnoreCase(code)) {
@@ -84,6 +84,9 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
+        if (country.isEmpty()) {
+            return "Country not found";
+        }
         int index = 0;
         for (int i = 0; i < countries.size(); i++) {
             if (countries.get(i).equals(country)) {
