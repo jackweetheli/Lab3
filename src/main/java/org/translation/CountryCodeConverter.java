@@ -1,12 +1,13 @@
 package org.translation;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,12 +15,11 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    private final List<String> countries = new ArrayList<>();
+    private final List<String> a2 = new ArrayList<>();
+    private final List<String> a3 = new ArrayList<>();
+    private final List<String> numeric = new ArrayList<>();
 
-    /**
-     * Default constructor which will load the country codes from "country-codes.txt"
-     * in the resources folder.
-     */
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
@@ -29,13 +29,20 @@ public class CountryCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
+
     public CountryCodeConverter(String filename) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable(s)
+            for (int i = 1; i < lines.size(); i++) {
+                String[] temp = lines.get(i).split("\t");
+                countries.add(temp[0]);
+                a2.add(temp[1]);
+                a3.add(temp[2]);
+                numeric.add(temp[3]);
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -45,13 +52,30 @@ public class CountryCodeConverter {
     }
 
     /**
+     * Add.
+     * @param args asd
+     */
+    public static void main(String[] args) {
+        CountryCodeConverter ctr = new CountryCodeConverter();
+        System.out.println(ctr.fromCountryCode("ASM"));
+        System.out.println(ctr.fromCountry("Barbados"));
+        System.out.println(ctr.getNumCountries());
+    }
+
+    /**
      * Returns the name of the country for the given country code.
      * @param code the 3-letter code of the country
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        int index = 0;
+        for (int i = 0; i < a3.size(); i++) {
+            if (a3.get(i).equalsIgnoreCase(code)) {
+                index = i;
+                break;
+            }
+        }
+        return countries.get(index);
     }
 
     /**
@@ -60,8 +84,14 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        int index = 0;
+        for (int i = 0; i < countries.size(); i++) {
+            if (countries.get(i).equals(country)) {
+                index = i;
+                break;
+            }
+        }
+        return a3.get(index);
     }
 
     /**
@@ -69,7 +99,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countries.size();
     }
 }

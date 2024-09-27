@@ -27,7 +27,7 @@ public class InLabByHandTranslator implements Translator {
         if ("can".equals(country)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
-        return new ArrayList<>();
+        return new ArrayList<>();x
     }
 
     // TODO Checkstyle: Static variable definition in wrong order.
